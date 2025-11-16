@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+#root{
+    width: 100%;
+    height: 100vh;
+    background-color: #EFECE3;
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+    scrollbar-width: none;
+}
