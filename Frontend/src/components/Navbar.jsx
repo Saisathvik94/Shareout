@@ -13,7 +13,7 @@ export default function Navbar() {
 
         {/* Desktop menu */}
         <ul className="hidden md:flex items-center gap-8 font-medium">
-          <Link to="/send">Send</Link>
+          <Link to="/">Send</Link>
           <Link to="/receive">Receive</Link>
           <Link to="/works">How it Works?</Link>
         </ul>
@@ -28,7 +28,7 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-white shadow-lg">
           <ul className="flex flex-col gap-6 p-6 font-medium">
-            <Link to="/send">Send</Link>
+            <Link to="/">Send</Link>
             <Link to="/receive">Receive</Link>
             <Link to="/works">How it Works?</Link>
           </ul>

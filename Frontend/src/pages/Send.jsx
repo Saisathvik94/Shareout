@@ -18,6 +18,22 @@ export default function Send(){
     }
     const handleDragOver = (e) => {e.preventDefault()}
 
+    // Sending Text to backend
+    const Sendtext = async() => {
+        try{
+            const res = await fetch("http://localhost:3000/api/send", {
+                method: "POST",
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify({ text })
+            })
+            if(!res.ok) throw new Error("Failed to send the data")
+        } catch(error){
+            console.error("Error:", error.message)
+        }
+    }
+    
+    
+
     return(
         <div className="flex items-center justify-center w-full mt-10">
             <motion.div
@@ -27,15 +43,11 @@ export default function Send(){
                 className="max-w-3xl w-full backdrop-blur-xl bg-white/60 rounded-2xl border border-white/30 shadow-lg shadow-black/10 p-6"
             >
 
-                {/* HEADER */}
                 <h2 className="text-xl font-semibold text-black mb-4">
                     Share your text, files & images instantly
                 </h2>
 
-                {/* MAIN BOX */}
                 <div className="bg-[#F5F4EF] h-[45vh] rounded-xl border border-[#4A70A9]/40 p-5 shadow-inner">
-
-                    {/* TEXTAREA / FILE / IMAGE */}
                     <div className="w-full h-45 mb-4">
                         {mode === "text" && (
                             <textarea
@@ -74,7 +86,6 @@ export default function Send(){
                         )}
                     </div>
 
-                    {/* MODE BUTTONS */}
                     <div className="flex items-center justify-center gap-4">
                         <button
                         onClick={() => setmode("file")}
@@ -103,11 +114,10 @@ export default function Send(){
 
                 </div>
 
-                {/* SEND BUTTON */}
                 <div className="flex justify-end mt-5">
                     <button
                     type="submit"
-                    onClick={() => {setLoading(true)}}
+                    onClick={Sendtext}
                     className="px-6 py-3 bg-[#4A70A9] text-white font-medium rounded-xl shadow-md hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-800/20 transition duration-300 ease-in-out"
                     >
                    Send

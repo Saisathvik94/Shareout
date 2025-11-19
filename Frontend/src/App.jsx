@@ -10,7 +10,7 @@ export default function App(){
   <Navbar/>
   <div className="pt-20">
     <Routes>
-      <Route path="/send" element={<Send />} />
+      <Route path="/" element={<Send />} />
       <Route path="/receive" element={<Receive />} />
     </Routes>
   </div>
