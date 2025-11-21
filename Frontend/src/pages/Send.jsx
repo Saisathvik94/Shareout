@@ -4,6 +4,7 @@ export default function Send(){
     const [mode, setmode] = useState("text")
     const [file, setFile] = useState(null)
     const [text, setText] = useState("")
+    const [Otp, setOtp] = useState("")
     const [loading, setLoading] = useState(false); // Demo
     const [progress, setProgress] = useState(0); // Demo percentage
 
@@ -26,7 +27,14 @@ export default function Send(){
                 headers: {"Content-type": "application/json"},
                 body: JSON.stringify({ text })
             })
-            if(!res.ok) throw new Error("Failed to send the data")
+            const data = await res.json();
+            if (!data.success) {
+              throw new Error("Failed to send the data");
+            }
+            else{
+              setOtp(data.otp);
+            }
+            
         } catch(error){
             console.error("Error:", error.message)
         }
@@ -123,8 +131,14 @@ export default function Send(){
                    Send
                     </button>
                 </div>
+                {Otp && (
+                  <div className="absolute top-5 right-5 bg-green-100 border border-green-300 rounded-lg text-green-800 px-4 py-3 shadow-lg animate-fadeIn">
+                    <strong>OTP:</strong> {Otp}
+                  </div>
+                )}
 
             </motion.div>
+            
 
         </div>
 

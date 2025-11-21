@@ -1,16 +1,18 @@
 import { OTP } from "../services/otp.js";
+import { client } from '../services/redis.js'
 import { Router } from "express";
 
 const router = Router()
 
-function sendOtp(req, res) {
-    const code = OTP();  
-    res.json({ otp: code });
-}
+router.post("/", async (req, res) => {
+  try{
+    const key = OTP()
+    await client.set(key, req.body.text, "EX", 120);
+    res.json({ success: true, otp : key });
 
-router.post("/send", (req, res) => {
-    console.log("Received text:", req.body.text);
-    res.json({ success: true });
+  }catch(error){
+    console.log("Redis error", error)
+  }
 });
 export default router;
 
