@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
       return res.json({ success: false, message: "Invalid or Expired OTP" });
     }
 
-    await client.del(otp); // delete once used
+    // keep OTP in redis until TTL expires
 
     res.json({ success: true, message: "OTP Verified", data });
 
