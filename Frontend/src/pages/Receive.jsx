@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { getWithTTL } from '../utils/localStorageTTl';
 import { setWithTTL } from '../utils/localStorageTTl';
@@ -17,17 +18,7 @@ export default function Receive(){
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
-
-    // Load data from local storage
-    useEffect(()=>{
-        const savedverify = getWithTTL("lastVerified")
-        const savedreceivedText = getWithTTL("lastReceivedText")
-
-        if (savedverify) setIsVerified(savedverify)
-        if (savedreceivedText) setReceivedText(savedreceivedText)
-
-    },[])
-
+    // Verify OTP
     const verifyOtp = async () => {
         setisOtpVerifying(true);
 
@@ -44,14 +35,12 @@ export default function Receive(){
             if (data.success) {
                 setReceivedText(data.data);
                 setIsVerified(true);
-                setWithTTL("lastReceivedText", data.data, 120);
-                setWithTTL("lastVerified", true, 120);
             } else {
-                alert(data.message || "Invalid or expired OTP");
+                toast.error(data.message || "Invalid or expired OTP", {duration: 3000});
             }
 
         } catch (error) {
-            console.error("Error:", error.message);
+            toast.error(`Error:${error.message}`, {duration: 3000});
             setisOtpVerifying(false);
         }
     };

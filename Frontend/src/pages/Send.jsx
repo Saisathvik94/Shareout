@@ -48,13 +48,13 @@ export default function Send(){
       try{
         if(mode === "text"){
           if (!text || text.trim() === "") {
-            toast("Please enter a message before sending.");
+            toast("Please enter a message before sending.", {duration: 3000});
             return;
           }
         }
         else if(mode==="file" || mode === "image"){
           if(!file){
-            toast("Please upload a file to send")
+            toast("Please upload a file to send", {duration: 3000})
             return
           }
         }
@@ -81,12 +81,12 @@ export default function Send(){
             const data = await res.json();
             const retryAfter = data.retryAfter;
             setRetryAfter(retryAfter);
-            toast.error(`Rate Limit! Try again in ${retryAfter}s`);
+            toast.error(`Rate Limit! Try again in ${retryAfter}s`, {duration: 3000});
             return;
         }
         const data = await res.json();
         if (!data.success) {
-          toast.error("Failed to send the data");
+          toast.error("Failed to send the data", {duration: 3000});
         } 
         else{
           setOtp(data.otp);
@@ -96,8 +96,8 @@ export default function Send(){
           setWithTTL("lastText", text, 120)
         }           
 
-      } catch (error){
-        console.error("Error:", error.message);
+      } catch (error){  
+        toast.error(`Error: ${error.message}`, {duration: 3000});
       }
     }
     
