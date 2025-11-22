@@ -118,7 +118,12 @@ export default function Receive(){
                 </motion.div>
                 </div>
             ): (
-                <div className="flex flex-col items-center w-full mt-10 gap-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="flex flex-col items-center w-full mt-10 gap-6 animate-scaleIn"
+                >
                     {/* Copy Button */}
                     <button
                         disabled={copied}
@@ -145,7 +150,7 @@ export default function Receive(){
                             {ReceivedText}
                         </p>
                     </div>
-                </div>
+                </motion.div>
 
             )}
         </div>

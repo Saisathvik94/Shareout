@@ -23,6 +23,7 @@ export default function Send(){
       return ()=> clearInterval(timer);
     }, [retryAfter])
 
+
     // Load important useStates In Local Storage with a Time period of 2 minutes after Send
     useEffect(() => {
         const savedOtp = getWithTTL("lastotp");
@@ -91,7 +92,7 @@ export default function Send(){
         else{
           setOtp(data.otp);
           toast.success("Sent Successfully ")
-          // Load important useStates In Local Storage with a Time period of 2 minutes after Send
+          // Store important useStates In Local Storage with a Time period of 2 minutes after Send
           setWithTTL("lastotp", data.otp, 120);
           setWithTTL("lastText", text, 120)
         }           
