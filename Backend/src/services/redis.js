@@ -1,4 +1,4 @@
-import { createClient } from 'redis';
+import { createClient } from "redis";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -6,18 +6,22 @@ dotenv.config();
 const client = createClient({
   url: process.env.REDIS_URL,
   socket: {
-    tls: true
+    tls: true,
+    rejectUnauthorized: false
   }
 });
 
-client.on("error",(err) => {
-    console.log("Error from redis")
-})
+client.on("error", (err) => {
+  console.error("Redis Error:", err);
+});
 
-client.on("connect", () =>{
-  console.log("Connected to redis server")
-})
+client.on("connect", () => {
+  console.log("Connected to Redis server");
+});
 
-await client.connect()
+// Prevent duplicate connections
+if (!client.isOpen) {
+  await client.connect();
+}
 
 export { client };
