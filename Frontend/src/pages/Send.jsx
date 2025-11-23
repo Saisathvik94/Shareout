@@ -13,6 +13,8 @@ export default function Send(){
     const [loading, setLoading] = useState(false); // Demo
     const [progress, setProgress] = useState(0); // Demo percentage
 
+    const API = import.meta.env.VITE_API_URL;
+
     // Handle Ratelimit timer effect
     useEffect(()=>{
       if(retryAfter <=0) return;
@@ -61,7 +63,7 @@ export default function Send(){
         }
         let res;
         if(mode === "text"){
-          res = await fetch("http://localhost:3000/api/send", {
+          res = await fetch(`${API}/api/send`, {
               method: "POST",
               headers: {"Content-type": "application/json"},
               body: JSON.stringify({ type:"text", text })
@@ -71,7 +73,7 @@ export default function Send(){
           const formdata = new FormData()
           formdata.append("type", mode)
           formdata.append("file", file)
-          res = await fetch("http://localhost:3000/api/send", {
+          res = await fetch(`${API}/api/send`, {
               method: "POST",
               body: formdata,
           })

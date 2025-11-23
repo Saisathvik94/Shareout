@@ -11,6 +11,8 @@ export default function Receive(){
     const [IsVerified, setIsVerified] = useState(false)
     const [copied, setCopied] = useState(false);
 
+    const API = import.meta.env.VITE_API_URL;
+
     // handle Copy to clipboard
     const handleCopy = async () => {
         if (!ReceivedText) return;
@@ -23,7 +25,7 @@ export default function Receive(){
         setisOtpVerifying(true);
 
         try {
-            const res = await fetch("http://localhost:3000/api/verify", {
+            const res = await fetch(`${API}/api/verify`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ otp: Otp })
