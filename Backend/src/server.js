@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/send', senderRouter);
-app.use('/api/verify', receiverRouter);
+app.use('/api/receive', receiverRouter);
 
 app.listen(port, ()=>{
     console.log(`Server Running at http://localhost:${port}`)
