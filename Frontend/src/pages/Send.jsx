@@ -136,7 +136,7 @@ export default function Send(){
               shadow-inner
               flex flex-col
             ">
-              {/* Content Box */}
+              
               <div className="flex-1 mb-4">
                 {mode === "text" && (
                   <textarea
@@ -230,7 +230,7 @@ export default function Send(){
               onClick={SendData}
               className={`px-5 sm:px-6 py-3 bg-[#4A70A9] text-white font-medium rounded-xl shadow-md
                   hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-800/20 
-                  transition duration-300 ease-in-out
+                  transition duration-300 ease-in-out cursor-pointer
                   w-full sm:w-auto
               ${retryAfter > 0 ? "bg-gray-400 cursor-not-allowed" : "bg-[#4A70A9]"}
               `}
