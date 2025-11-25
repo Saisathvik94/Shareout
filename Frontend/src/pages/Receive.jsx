@@ -25,7 +25,7 @@ export default function Receive(){
         setisOtpVerifying(true);
 
         try {
-            const res = await fetch(`${API}/api/verify`, {
+            const res = await fetch(`${API}/api/receive`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ otp: Otp })

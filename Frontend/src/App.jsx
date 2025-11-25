@@ -4,6 +4,8 @@ import Send from './pages/Send.jsx'
 import Receive from './pages/Receive.jsx'
 import { Toaster } from "react-hot-toast";
 import { Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react';
+
 
 export default function App(){
   return (
@@ -16,6 +18,7 @@ export default function App(){
       <Route path="/receive" element={<Receive />} />
     </Routes>
   </div>
+  <Analytics />
   </>
   )
 }
