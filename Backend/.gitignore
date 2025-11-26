@@ -41,6 +41,4 @@ Thumbs.db
 .idea/
 *.iml
 
-# Lock files 
-package-lock.json
 
