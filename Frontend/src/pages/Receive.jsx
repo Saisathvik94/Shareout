@@ -46,7 +46,6 @@ export default function Receive(){
             setisOtpVerifying(false);
         }
     };
-
     return(
         <div>
             {!IsVerified ? (
@@ -61,7 +60,7 @@ export default function Receive(){
                 {/* Header */}
                 <div className="flex items-center mb-2">
                     <svg
-                    className="mr-2 h-6 w-6 text-[#4A70A9]"
+                    className="mr-2 h-6 w-6 text-[#000B58]"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -137,14 +136,21 @@ export default function Receive(){
 
                     {/* Output Box */}
                     <div
-                        className={`w-[90%] sm:w-[500px] min-h-[150px] p-5 rounded-2xl
-                            border border-white/20 bg-white/30 backdrop-blur-xl
-                            shadow-lg transition-all
-                            ${ReceivedText ? "opacity-100" : "opacity-60"}
-                        `}
+                    className={`w-full sm:w-[500px] p-5 rounded-2xl
+                        border border-white/20 bg-white backdrop-blur-xl
+                        shadow-lg transition-all
+                        ${ReceivedText ? "opacity-100" : "opacity-60"}
+                    `}
                     >
-                        <p className="text-gray-900 tracking-wide leading-relaxed whitespace-pre-wrap">
-                            {ReceivedText}
+                        <p
+                        contentEditable
+                        suppressContentEditableWarning
+                        className="text-gray-900 tracking-wide leading-relaxed whitespace-pre-wrap outline-none cursor-text"
+                        onInput={(e) => {
+                            ReceivedTextRef.current = e.currentTarget.innerText;
+                        }}
+                        >
+                        {ReceivedText}
                         </p>
                     </div>
                 </motion.div>

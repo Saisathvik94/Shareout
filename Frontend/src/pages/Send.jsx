@@ -115,23 +115,23 @@ export default function Send(){
             className="
               w-full 
               max-w-lg sm:max-w-2xl lg:max-w-3xl
-              backdrop-blur-xl bg-white/60 
-              rounded-2xl border border-white/30 
+              backdrop-blur-xl bg-[#000B58]/20
+              rounded-2xl border border-white/20 
               shadow-lg shadow-black/10 
               p-4 sm:p-6 
               relative
             "
           >
-            <h2 className="text-lg sm:text-xl font-semibold text-black mb-3 sm:mb-4 text-center sm:text-left">
+            <h2 className="text-xl sm:text-xl font-semibold text-[#F5F5DC] mb-3 sm:mb-4 text-left">
               Share your text, files & images instantly
             </h2>
 
             {/* Main input container */}
             <div className="
-              bg-[#F5F4EF] 
+              bg-[#003161]/10
               h-[50vh] sm:h-[45vh] 
               rounded-xl 
-              border border-[#4A70A9]/40 
+              border border-white/30 
               p-4 sm:p-5 
               shadow-inner
               flex flex-col
@@ -143,9 +143,10 @@ export default function Send(){
                     className="
                       w-full h-full p-3 sm:p-4 
                       rounded-xl border border-gray-300 
-                      outline-none focus:ring-2 focus:ring-[#4A70A9] 
-                      bg-white/70 shadow-sm 
+                      outline-none 
+                      bg-gray-50 shadow-sm 
                       resize-none overflow-y-scroll scrollbar-hide
+                      text-lg
                     "
                     placeholder="Type your message..."
                     onChange={(e) => setText(e.target.value)}
@@ -172,7 +173,7 @@ export default function Send(){
                         border-2 border-dashed 
                         rounded-xl p-4 sm:p-6 
                         text-center 
-                        bg-gray-50 hover:bg-gray-100 
+                        bg-gray-50 hover:bg-gray-300 
                         transition 
                         flex items-center justify-center 
                         cursor-pointer
@@ -196,8 +197,14 @@ export default function Send(){
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                 <button
                   onClick={() => setmode("file")}
-                  className={`px-5 py-2 rounded-xl shadow-sm hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-[#8FABD4] transition duration-300 ease-in-out
-                    ${mode === "file" ? "bg-[#4A70A9] text-white" : "bg-white text-gray-700"}
+                   className={`
+                    px-4 py-2 rounded-xl font-medium
+                    border border-white/20 backdrop-blur-xl
+                    shadow-md shadow-black/20
+                    transition-all duration-300 ease-in-out
+                    ${mode === "file" 
+                      ? "bg-[#4A70A9] text-[#F5F5DC] shadow-lg shadow-blue-500/30" 
+                      : "bg-white/30 text-[#F5F5DC] hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/20"}
                   `}
                 >
                   Files
@@ -205,8 +212,13 @@ export default function Send(){
 
                 <button
                   onClick={() => setmode("text")}
-                  className={`px-5 py-2 rounded-xl shadow-sm hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-[#8FABD4] transition duration-300 ease-in-out
-                    ${mode === "text" ? "bg-[#4A70A9] text-white" : "bg-white text-gray-700"}
+                  className={`px-4 py-2 rounded-xl font-medium
+                    border border-white/20 backdrop-blur-xl
+                    shadow-md shadow-black/20
+                    transition-all duration-300 ease-in-out
+                    ${mode === "text" 
+                      ? "bg-[#4A70A9] text-[#F5F5DC] shadow-lg shadow-blue-500/30" 
+                      : "bg-white/30 text-[#F5F5DC] hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/20"}
                   `}
                 >
                   Text
@@ -214,8 +226,13 @@ export default function Send(){
 
                 <button
                   onClick={() => setmode("image")}
-                  className={`px-5 py-2 rounded-xl shadow-sm hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-[#8FABD4] transition duration-300 ease-in-out
-                    ${mode === "image" ? "bg-[#4A70A9] text-white" : "bg-white text-gray-700"}
+                  className={`px-4 py-2 rounded-xl font-medium
+                    border border-white/20 backdrop-blur-xl
+                    shadow-md shadow-black/20
+                    transition-all duration-300 ease-in-out
+                    ${mode === "image" 
+                      ? "bg-[#4A70A9] text-[#F5F5DC] shadow-lg shadow-blue-500/30" 
+                      : "bg-white/30 text-[#F5F5DC] hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/20"}
                   `}
                 >
                   Images
@@ -246,7 +263,7 @@ export default function Send(){
                 top-3 right-3 
                 bg-green-100 border border-green-300 
                 rounded-lg text-green-800 
-                px-3 py-2 
+                px-3 py-2 font-sans
                 text-sm sm:text-base
                 shadow-lg animate-fadeIn
               ">
