@@ -55,7 +55,7 @@ export default function Receive(){
                     initial={{ opacity: 0, y: 40, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="w-[90%] sm:w-[400px] bg-white rounded-2xl p-6 shadow-xl animate-scaleIn"
+                    className="w-[90%] sm:w-[400px] text-[#F5F5DC] backdrop-blur-xl bg-[#000B58]/20 border border-white/20  rounded-2xl p-6 shadow-xl animate-scaleIn"
                 >
                 {/* Header */}
                 <div className="flex items-center mb-2">
@@ -82,7 +82,7 @@ export default function Receive(){
                     const value = e.target.value.replace(/\D/g, "").slice(0, 4);
                     setOtp(value);
                     }}
-                    className="w-full mt-1 p-3 text-center text-lg tracking-widest border rounded-lg outline-none focus:ring-2 focus:ring-[#4A70A9] "
+                    className="w-full mt-1 p-3 text-center text-lg tracking-widest border rounded-lg outline-none"
                 />
 
                 {/* Buttons */}
@@ -137,7 +137,7 @@ export default function Receive(){
                     {/* Output Box */}
                     <div
                     className={`w-full sm:w-[500px] p-5 rounded-2xl
-                        border border-white/20 bg-white backdrop-blur-xl
+                        border border-white/20 text-[#F5F5DC] backdrop-blur-xl
                         shadow-lg transition-all
                         ${ReceivedText ? "opacity-100" : "opacity-60"}
                     `}
@@ -145,7 +145,7 @@ export default function Receive(){
                         <p
                         contentEditable
                         suppressContentEditableWarning
-                        className="text-gray-900 tracking-wide leading-relaxed whitespace-pre-wrap outline-none cursor-text"
+                        className="text-[#F5F5DC] tracking-wide leading-relaxed whitespace-pre-wrap outline-none cursor-text"
                         onInput={(e) => {
                             ReceivedTextRef.current = e.currentTarget.innerText;
                         }}
