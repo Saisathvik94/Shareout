@@ -18,9 +18,9 @@ ShareOut is a simple and powerful tool that lets users share text, and soon file
 
 - Send text instantly through a simple UI.
 
-### 🖼️ File & Image Sharing (In Progress)
+### 🖼️ File & Media Sharing 
 
-- Files/images upload to S3 → URL stored in Redis.
+- Files/images upload to supabase bucket → URL stored in Redis.
 
 - Retrieved using OTP.
 
@@ -51,7 +51,7 @@ ShareOut is a simple and powerful tool that lets users share text, and soon file
 
 - Upstash Redis (OTP, text, file URLs)
 
-- AWS S3 (for storing files & images)
+- supabase (for storing files, images & videos)
 
 - Rate limiting middleware
 
@@ -59,13 +59,13 @@ ShareOut is a simple and powerful tool that lets users share text, and soon file
 
 **1. Create OTP & Store Data**
 
-- User enters text (or uploads file/image — coming soon)
+- User enters text (or uploads file/media)
 
 - Server generates OTP
 
 - Stores in Redis as:
 ```
-otp:123456 → actual_text_or_s3_url
+otp:123456 → actual_text_or_file_url
 TTL: e.g., 2 minutes
 ```
 
