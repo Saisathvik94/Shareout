@@ -8,6 +8,8 @@ export default function Receive(){
     const [Otp, setOtp] = useState("")
     const [isOtpVerifying, setisOtpVerifying ] = useState(false)
     const [ReceivedText, setReceivedText] = useState("")
+    const [ReceivedURL, setReceivedURL] = useState("")
+    const [ReceivedType, setReceivedType] = useState(null)
     const [IsVerified, setIsVerified] = useState(false)
     const [copied, setCopied] = useState(false);
 
@@ -35,17 +37,30 @@ export default function Receive(){
             setisOtpVerifying(false);
 
             if (data.success) {
-                setReceivedText(data.data);
-                setIsVerified(true);
+                if(data.type === "text"){
+                    setReceivedType(data.type);
+                    setReceivedText(data.data);
+                    setIsVerified(true);
+                }
+                else if(data.type === "file" || data.type === "media"){
+                    setReceivedType(data.type);
+                    setReceivedURL(data.url);
+                    setIsVerified(true);
+                }
+                
+                
             } else {
                 toast.error(data.message || "Invalid or expired OTP", {duration: 3000});
             }
+            
+
 
         } catch (error) {
             toast.error(`Error:${error.message}`, {duration: 3000});
             setisOtpVerifying(false);
         }
     };
+
     return(
         <div>
             {!IsVerified ? (
@@ -139,9 +154,9 @@ export default function Receive(){
                     className={`w-full sm:w-[500px] p-5 rounded-2xl
                         border border-white/20 text-[#F5F5DC] backdrop-blur-xl
                         shadow-lg transition-all
-                        ${ReceivedText ? "opacity-100" : "opacity-60"}
                     `}
                     >
+                        {ReceivedType=="text" &&
                         <p
                         contentEditable
                         suppressContentEditableWarning
@@ -152,6 +167,21 @@ export default function Receive(){
                         >
                         {ReceivedText}
                         </p>
+                        }
+                        {(ReceivedType === "file" || ReceivedType === "media") && (
+                        <div className="text-center space-y-3">
+                            <p className="text-lg font-semibold">File received</p>
+
+                            <a
+                            href={ReceivedURL}
+                            download
+                            className="inline-block bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                            >
+                            Download
+                            </a>
+                        </div>
+                        )}
+                        
                     </div>
                 </motion.div>
 

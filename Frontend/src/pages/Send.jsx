@@ -7,6 +7,7 @@ import { getWithTTL } from '../utils/localStorageTTl';
 export default function Send(){
     const [mode, setmode] = useState("text")
     const [file, setFile] = useState(null)
+    const [mediafile, setMediaFile] = useState(null)
     const [text, setText] = useState("")
     const [Otp, setOtp] = useState("")
     const [retryAfter, setRetryAfter] = useState(0)
@@ -55,9 +56,15 @@ export default function Send(){
             return;
           }
         }
-        else if(mode==="file" || mode === "image"){
+        else if(mode==="file"){
           if(!file){
             toast("Please upload a file to send", {duration: 3000})
+            return
+          }
+        }
+        else if(mode=="media"){
+          if(!mediafile){
+            toast("Please upload a media file to send", {duration:3000})
             return
           }
         }
@@ -69,10 +76,20 @@ export default function Send(){
               body: JSON.stringify({ type:"text", text })
           })
         }
-        else{
+        else if(mode=="file"){
           const formdata = new FormData()
           formdata.append("type", mode)
           formdata.append("file", file)
+          res = await fetch(`${API}/api/send`, {
+              method: "POST",
+              body: formdata,
+          })
+
+        }
+        else if(mode=="media"){
+          const formdata = new FormData()
+          formdata.append("type", mode)
+          formdata.append("file", mediafile)
           res = await fetch(`${API}/api/send`, {
               method: "POST",
               body: formdata,
@@ -91,6 +108,7 @@ export default function Send(){
         if (!data.success) {
           toast.error("Failed to send the data", {duration: 3000});
         } 
+        
         else{
           setOtp(data.otp);
           toast.success("Sent Successfully ")
@@ -152,11 +170,11 @@ export default function Send(){
                   ></textarea>
                 )}
 
-                {(mode === "file" || mode === "image") && (
+                {(mode === "file") && (
                   <div className="w-full h-full">
                     <input
                       type="file"
-                      accept={mode === "image" ? "image/*" : "*"}
+                      accept={".pdf,.doc,.docx,.xls,.xlsx,.csv,.zip"}
                       onChange={(e) => setFile(e.target.files[0])}
                       className="hidden"
                       id="fileInput"
@@ -183,7 +201,44 @@ export default function Send(){
                         </p>
                       ) : (
                         <p className="text-lg sm:text-xl text-gray-500 text-center">
-                          Drag & Drop your {mode === "image" ? "image" : "file"} here
+                          Drag & Drop your Files here
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {(mode === "media") && (
+                  <div className="w-full h-full">
+                    <input
+                      type="file"
+                      accept={"image/*,video/*"}
+                      onChange={(e) => setMediaFile(e.target.files[0])}
+                      className="hidden"
+                      id="fileInput"
+                    />
+
+                    <div
+                      onDrop={handleDrop}
+                      onDragOver={handleDragOver}
+                      onClick={() => document.getElementById("fileInput").click()}
+                      className="
+                        w-full h-full 
+                        border-2 border-dashed 
+                        rounded-xl p-4 sm:p-6 
+                        text-center 
+                        bg-gray-50 hover:bg-gray-300 
+                        transition 
+                        flex items-center justify-center 
+                        cursor-pointer
+                      "
+                    >
+                      {mediafile ? (
+                        <p className="text-lg sm:text-xl text-green-600 text-center">
+                          Selected: {mediafile.name}
+                        </p>
+                      ) : (
+                        <p className="text-lg sm:text-xl text-gray-500 text-center">
+                          Drag & Drop your Media files here
                         </p>
                       )}
                     </div>
@@ -223,17 +278,17 @@ export default function Send(){
                 </button>
 
                 <button
-                  onClick={() => setmode("image")}
+                  onClick={() => setmode("media")}
                   className={`px-4 py-2 rounded-xl font-medium
                     border border-white/20 backdrop-blur-xl
                     shadow-md shadow-black/20
                     transition-all duration-300 ease-in-out
-                    ${mode === "image" 
+                    ${mode === "media" 
                       ? "bg-[#4A70A9] text-[#F5F5DC] shadow-lg shadow-blue-500/30" 
                       : "bg-white/30 text-[#F5F5DC] hover:bg-blue-500 hover:text-white hover:shadow-lg hover:shadow-blue-500/20"}
                   `}
                 >
-                  Images
+                  Media
                 </button>
               </div>
             </div>
