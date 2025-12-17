@@ -1,6 +1,8 @@
 import express from 'express'
 import senderRouter from "./routes/Sender.js";
 import receiverRouter from "./routes/Receiver.js"
+import healthRoute from "./routes/Health.js"
+import { cleanUpExpiredfiles } from './cleanupCronJob.js';
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -21,7 +23,11 @@ app.get('/', (req, res) => {
 
 app.use('/api/send', senderRouter);
 app.use('/api/receive', receiverRouter);
+app.use("/api/health", healthRoute);
+
 
 app.listen(port, ()=>{
     console.log(`Server Running at http://localhost:${port}`)
-})
+    // start Cron JOB
+    cleanUpExpiredfiles();
+});
